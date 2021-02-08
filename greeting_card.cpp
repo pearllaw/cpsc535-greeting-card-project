@@ -14,7 +14,7 @@ pair <string, string> list_pair(string first, string second)
     return pairs;
 }
 
-string greeting_card_generator(string s, vector<pair<string, string>>, 
+string greeting_card_generator(string s, vector<pair<string, string>> ls, 
     int char_count, int pair_count)
 {
     // return original string if no words/pairs
@@ -22,9 +22,36 @@ string greeting_card_generator(string s, vector<pair<string, string>>,
     {
         return s;
     }
-
     
-    return "Hi";
+    // initialize iss as s
+    istringstream iss(s);
+    string word;
+    s.clear();
+
+    while (iss >> word)
+    {
+        for (unsigned int i = 0; i < pair_count; i++)
+        {
+            if (word == ls[i].first)
+            {
+                s += ls[i].second + ' ';
+                break;
+            }
+        }
+        s += word + ' ';
+    }     
+  
+    // for (unsigned int i = 0; i < pair_count; i++)
+    // {
+    //     size_t found = s.find(ls[i].first, 0);
+    //     size_t word_len = ls[i].first.length();
+    //     string replacement = ls[i].second;
+    //     if (found == string::npos) break;
+    //     s.replace(found, word_len, replacement);
+    //     found += replacement.length();
+    // }
+
+    return s;
 }
  
 int main(int argc, char** argv)
@@ -75,13 +102,6 @@ int main(int argc, char** argv)
     }
     infile2.close();
     
-    // cout << str << endl;
-    
-    // for (unsigned int i = 0; i < ls.size(); i++)
-    // {
-    //     cout << ls[i].first << ", " << ls[i].second << endl;
-    // }
-    
     // number of characters in s
     int n = s.length();
     
@@ -89,7 +109,7 @@ int main(int argc, char** argv)
     int m = ls.size();
 
     // output new greeting
-    greeting_card_generator(str, ls, n, m);
+    cout << greeting_card_generator(s, ls, n, m);
     
     return 0;
 }

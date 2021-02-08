@@ -1,0 +1,5 @@
+new,old
+student,teacher
+to,yester
+old,young
+end,beginning
