@@ -14,42 +14,39 @@ pair <string, string> list_pair(string first, string second)
     return pairs;
 }
 
-string greeting_card_generator(string s, vector<pair<string, string>> ls, 
-    int char_count, int pair_count)
+string greeting_card_generator(string s, vector<pair<string, string>> ls)
 {
-    // return original string if no words/pairs
-    if (char_count <= 0 || pair_count <= 0)
+    // return original string if empty string/no list pairs
+    if (s.empty() || ls.size() == 0)
     {
         return s;
     }
     
-    // initialize iss as s
-    istringstream iss(s);
-    string word;
-    s.clear();
+    stringstream ss(s);
+    string temp;
+    vector<string> words;
 
-    while (iss >> wormv
+    s.clear();  // clear out s to update new greeting
+
+    // store each word of input string into vector
+    while (ss >> temp)
     {
-        for (unsigned int i = 0; i < pair_count; i++)
+        words.push_back(temp);
+    }
+
+    for (unsigned int i = 0; i < words.size(); i++)
+    {
+        for (unsigned int j = 0; j < ls.size(); j++)
         {
-            if (word == ls[i].first)
+            size_t found = words[i].find(ls[j].first);
+            if (found != string::npos)  // match found
             {
-                s += ls[i].second + ' ';
+                words[i].replace(found, ls[j].second.length(), ls[j].second);
                 break;
             }
         }
-        s += word + ' ';
-    }     
-  
-    // for (unsigned int i = 0; i < pair_count; i++)
-    // {
-    //     size_t found = s.find(ls[i].first, 0);
-    //     size_t word_len = ls[i].first.length();
-    //     string replacement = ls[i].second;
-    //     if (found == string::npos) break;
-    //     s.replace(found, word_len, replacement);
-    //     found += replacement.length();
-    // }
+        s += words[i] + ' ';
+    }
 
     return s;
 }
@@ -102,14 +99,8 @@ int main(int argc, char** argv)
     }
     infile2.close();
     
-    // number of characters in s
-    int n = s.length();
-    
-    // count number of pairs in ls
-    int m = ls.size();
-
     // output new greeting
-    cout << greeting_card_generator(s, ls, n, m);
+    cout << greeting_card_generator(s, ls);
     
     return 0;
 }
