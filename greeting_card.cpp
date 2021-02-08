@@ -28,7 +28,7 @@ string greeting_card_generator(string s, vector<pair<string, string>> ls,
     string word;
     s.clear();
 
-    while (iss >> word)
+    while (iss >> wormv
     {
         for (unsigned int i = 0; i < pair_count; i++)
         {
