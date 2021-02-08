@@ -4,4 +4,5 @@ Rewriting greeting cards
 Group members:
 
 Pearl Law pearl.law@csu.fullerton.edu
+
 Jenni Wu  chihyi1126@csu.fullerton.edu
