@@ -41,7 +41,7 @@ string greeting_card_generator(string s, vector<pair<string, string>> ls)
             size_t found = words[i].find(ls[j].first);
             if (found != string::npos)  // match found
             {
-                words[i].replace(found, ls[j].second.length(), ls[j].second);
+                words[i].replace(found, ls[j].first.length(), ls[j].second);
                 break;
             }
         }
