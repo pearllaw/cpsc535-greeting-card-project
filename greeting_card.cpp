@@ -100,7 +100,7 @@ int main(int argc, char** argv)
     infile2.close();
     
     // output new greeting
-    cout << greeting_card_generator(s, ls);
+    cout << greeting_card_generator(s, ls) << endl;
     
     return 0;
 }
