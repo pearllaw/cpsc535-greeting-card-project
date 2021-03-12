@@ -6,6 +6,10 @@
 
 using namespace std;
 
+struct candidate {
+    int state =-1;
+};
+
 pair <string, string> list_pair(string first, string second);
 
 pair <string, string> list_pair(string first, string second)
@@ -16,39 +20,42 @@ pair <string, string> list_pair(string first, string second)
 
 string greeting_card_generator(string s, vector<pair<string, string>> ls)
 {
-    // return original string if empty string/no list pairs
-    if (s.empty() || ls.size() == 0)
-    {
-        return s;
-    }
-    
-    stringstream ss(s);
-    string temp;
-    vector<string> words;
+     string ne{ s };
+    string result = "";
+    vector<candidate> vec;
 
-    s.clear();  // clear out s to update new greeting
+    vector<candidate> vec(200);
 
-    // store each word of input string into vector
-    while (ss >> temp)
-    {
-        words.push_back(temp);
-    }
 
-    for (unsigned int i = 0; i < words.size(); i++)
+    for (unsigned int i = 0; i < ne.length() - 1; i++)
     {
-        for (unsigned int j = 0; j < ls.size(); j++)
+        for (unsigned int j = 0; j < ls.size() - 1; j++)
         {
-            size_t found = words[i].find(ls[j].first);
+            size_t found = ne.find(ls[j].first);
             if (found != string::npos)  // match found
             {
-                words[i].replace(found, ls[j].first.length(), ls[j].second);
-                break;
+                vec[i].state = j;
             }
         }
-        s += words[i] + ' ';
     }
 
-    return s;
+    for (unsigned int i = 0; i < ne.length() - 1; i++)
+    {
+        if (vec[i].state == ne.length())
+        {
+            result += ne.substr(i, 1);
+        }
+        if (vec[i].state != empty())
+        {
+            for (unsigned int j = 0; j < ls.size() - 1; j++) 
+            {
+                if (vec[i].state == j) {
+                    result += ls[j].second;
+                }
+            }
+        }
+    }
+    return result;
 }
  
 int main(int argc, char** argv)
