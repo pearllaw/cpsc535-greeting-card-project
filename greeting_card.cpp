@@ -24,8 +24,6 @@ string greeting_card_generator(string s, vector<pair<string, string>> ls)
     string result = "";
     vector<candidate> vec;
 
-    vector<candidate> vec(200);
-
 
     for (unsigned int i = 0; i < ne.length() - 1; i++)
     {
@@ -51,6 +49,7 @@ string greeting_card_generator(string s, vector<pair<string, string>> ls)
             {
                 if (vec[i].state == j) {
                     result += ls[j].second;
+                    i = i + ls[j].first.length();
                 }
             }
         }
