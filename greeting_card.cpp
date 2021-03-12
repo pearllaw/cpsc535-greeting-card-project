@@ -3,6 +3,8 @@
 #include <vector>
 #include <utility>
 #include <sstream>
+#include <string>
+#include <algorithm> 
 
 using namespace std;
 
@@ -20,12 +22,12 @@ string greeting_card_generator(string s, vector<pair<string, string>> ls)
     string result = "";
    
     vector<int> vec;
-    for (int i = 1;i <= ne.length()-1;i++) {
+    for (int i = 1;i <= ne.length();i++) {
         vec.push_back(-1);
     }
-    for (unsigned int i = 0; i < ne.length() ; i++)
+   for (unsigned int j = 0; j < ls.size(); j++)
     {    
-        for (unsigned int j = 0; j < ls.size() ; j++)
+       for (unsigned int i = 0; i < ne.length(); i++)
         {
             size_t found = ne.find(ls[j].first);
             if (found != string::npos)  // match found
@@ -47,7 +49,7 @@ string greeting_card_generator(string s, vector<pair<string, string>> ls)
             {
                 if (vec[i] == j) {
                     result += ls[j].second;
-                    i = i + ls[j].first.length();
+                    i = i + ls[j].first.length() -1;
                 }
             }
         }
