@@ -6,10 +6,6 @@
 
 using namespace std;
 
-struct candidate {
-    int state =-1;
-};
-
 pair <string, string> list_pair(string first, string second);
 
 pair <string, string> list_pair(string first, string second)
@@ -22,32 +18,34 @@ string greeting_card_generator(string s, vector<pair<string, string>> ls)
 {
      string ne{ s };
     string result = "";
-    vector<candidate> vec;
-
-
-    for (unsigned int i = 0; i < ne.length() - 1; i++)
-    {
-        for (unsigned int j = 0; j < ls.size() - 1; j++)
+   
+    vector<int> vec;
+    for (int i = 1;i <= ne.length()-1;i++) {
+        vec.push_back(-1);
+    }
+    for (unsigned int i = 0; i < ne.length() ; i++)
+    {    
+        for (unsigned int j = 0; j < ls.size() ; j++)
         {
             size_t found = ne.find(ls[j].first);
             if (found != string::npos)  // match found
             {
-                vec[i].state = j;
+                vec[found] = j;
             }
         }
     }
 
-    for (unsigned int i = 0; i < ne.length() - 1; i++)
+    for (unsigned int i = 0; i < ne.length(); i++)
     {
-        if (vec[i].state == ne.length())
+        if (vec[i] == -1)
         {
             result += ne.substr(i, 1);
         }
-        if (vec[i].state != empty())
+        else
         {
-            for (unsigned int j = 0; j < ls.size() - 1; j++) 
+            for (unsigned int j = 0; j < ls.size(); j++) 
             {
-                if (vec[i].state == j) {
+                if (vec[i] == j) {
                     result += ls[j].second;
                     i = i + ls[j].first.length();
                 }
