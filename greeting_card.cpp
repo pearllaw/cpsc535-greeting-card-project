@@ -4,7 +4,6 @@
 #include <utility>
 #include <sstream>
 #include <string>
-#include <algorithm> 
 
 using namespace std;
 
@@ -18,38 +17,48 @@ pair <string, string> list_pair(string first, string second)
 
 string greeting_card_generator(string s, vector<pair<string, string>> ls)
 {
-     string ne{ s };
+    string ne{ s };
     string result = "";
-   
     vector<int> vec;
-    for (int i = 1;i <= ne.length();i++) {
+    
+    //assigned initial value (-1) to elements 
+    for (int i = 1;i <= ne.length();i++) 
+    {
         vec.push_back(-1);
     }
-   for (unsigned int j = 0; j < ls.size(); j++)
+    
+    //through by each substr in sentence
+    for (unsigned int j = 0; j < ls.size(); j++)
     {    
+       //through by pairs  
        for (unsigned int i = 0; i < ne.length(); i++)
-        {
+       {
             size_t found = ne.find(ls[j].first);
             if (found != string::npos)  // match found
             {
-                vec[found] = j;
+                vec[found] = j; // change value in vec[position]
+                found = ne.find(ls[j].first, found+ls[j].first.length()); //derict to jump into next index after found word.length
             }
-        }
+       }
     }
-
+    
+    //through by pairs  
     for (unsigned int i = 0; i < ne.length(); i++)
     {
+        //no matching from pairs
         if (vec[i] == -1)
         {
-            result += ne.substr(i, 1);
+            string nm = ne.substr(i, 1);
+            result += nm; // add into result
         }
-        else
+        else // found match
         {
             for (unsigned int j = 0; j < ls.size(); j++) 
             {
                 if (vec[i] == j) {
-                    result += ls[j].second;
-                    i = i + ls[j].first.length() -1;
+                    string m = ls[j].second;
+                    result += m; //add switch word into result
+                    i = i + ls[j].first.length() -1; //jump to next word after found word.length
                 }
             }
         }
