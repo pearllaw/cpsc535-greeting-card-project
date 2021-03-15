@@ -109,14 +109,12 @@ int main(int argc, char** argv)
         string first, second;
         getline(ss, first, ',');
         getline(ss, second, ',');
-        cout << first << "  &  " << second << endl;
 
         ls.push_back(list_pair(first, second));
     }
     infile2.close();
     
     // output new greeting
-    cout << s << endl;
     cout << greeting_card_generator(s, ls) << endl;
     
     return 0;
