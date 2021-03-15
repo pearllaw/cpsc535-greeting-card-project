@@ -21,36 +21,43 @@ string greeting_card_generator(string s, vector<pair<string, string>> ls)
     string ne{ s };
     string result;
     vector<int> vec;
+    
+    //create vector and init(-1) to element
     for (int i = 1;i <= ne.length();i++) {
         vec.push_back(-1);
     }
+    
+    //for j = 1 to list pair length 
     for (unsigned int j = 0; j < ls.size(); j++)
     {    
+        //for i = 1 to string length
         for (unsigned int i = 0; i < ne.length(); i++)
         {
             size_t found = ne.find(ls[j].first);
             while (found != string::npos)  // match found
             {
-                vec[found] = j;
+                vec[found] = j; // assign k into the index which was found
                 found = ne.find(ls[j].first, found+ls[j].first.length());
             }
         }
     }
+    
+    //for i = 1 to string length
     for (unsigned int i = 0; i < ne.length(); i++)
     {
         if (vec[i] == -1)
-        {
+        {    //not paired
             string nm = ne.substr(i, 1);
-            result += nm;
-        }
+            result += nm;  // add original substring into string
+        }    
         else
-        {
+        {    //paired
             for (unsigned int j = 0; j < ls.size(); j++) 
             {
                // cout << "54  " << j <<endl;
                 if (vec[i] == j) {
                     string m = ls[j].second;
-                    result += m;
+                    result += m;   // add paired into string
                     i = i + ls[j].first.length() -1; 
                 }
             }
