@@ -17,48 +17,41 @@ pair <string, string> list_pair(string first, string second)
 
 string greeting_card_generator(string s, vector<pair<string, string>> ls)
 {
+    // return original string if empty string/no list pairs
     string ne{ s };
-    string result = "";
+    string result;
     vector<int> vec;
-    
-    //assigned initial value (-1) to elements 
-    for (int i = 1;i <= ne.length();i++) 
-    {
+    for (int i = 1;i <= ne.length();i++) {
         vec.push_back(-1);
     }
-    
-    //through by each substr in sentence
     for (unsigned int j = 0; j < ls.size(); j++)
     {    
-       //through by pairs  
-       for (unsigned int i = 0; i < ne.length(); i++)
-       {
+        for (unsigned int i = 0; i < ne.length(); i++)
+        {
             size_t found = ne.find(ls[j].first);
-            if (found != string::npos)  // match found
+            while (found != string::npos)  // match found
             {
-                vec[found] = j; // change value in vec[position]
-                found = ne.find(ls[j].first, found+ls[j].first.length()); //derict to jump into next index after found word.length
+                vec[found] = j;
+                found = ne.find(ls[j].first, found+ls[j].first.length());
             }
-       }
+        }
     }
-    
-    //through by pairs  
     for (unsigned int i = 0; i < ne.length(); i++)
     {
-        //no matching from pairs
         if (vec[i] == -1)
         {
             string nm = ne.substr(i, 1);
-            result += nm; // add into result
+            result += nm;
         }
-        else // found match
+        else
         {
             for (unsigned int j = 0; j < ls.size(); j++) 
             {
+               // cout << "54  " << j <<endl;
                 if (vec[i] == j) {
                     string m = ls[j].second;
-                    result += m; //add switch word into result
-                    i = i + ls[j].first.length() -1; //jump to next word after found word.length
+                    result += m;
+                    i = i + ls[j].first.length() -1; 
                 }
             }
         }
@@ -109,15 +102,16 @@ int main(int argc, char** argv)
         string first, second;
         getline(ss, first, ',');
         getline(ss, second, ',');
+        cout << first << "  &  " << second << endl;
 
         ls.push_back(list_pair(first, second));
     }
     infile2.close();
     
     // output new greeting
+    cout << s << endl;
     cout << greeting_card_generator(s, ls) << endl;
     
     return 0;
 }
-
 
